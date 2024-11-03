@@ -1,7 +1,0 @@
-{
-  "url": "https://wellfitness.perfectgym.pl/ClientPortal2/Clubs/Clubs/GetMembersInClubs",
-  "cookies": "ClientPortal.Auth=auth-token",
-  "timezone": "Europe/London",
-  "keywords": ["wrocławska", "korfantego"],
-  "outputFile": "results.csv"
-}
