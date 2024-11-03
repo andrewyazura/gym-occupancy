@@ -61,7 +61,7 @@ func appendToOutput(path string, row []byte) error {
 func getTime(timezone string) (time.Time, error) {
 	loc, err := time.LoadLocation(timezone)
 	if err != nil {
-		return time.Time{}, fmt.Errorf("invalid timezone %s: %w", timezone, err)
+		return time.Time{}, err
 	}
 
 	return time.Now().In(loc), nil
@@ -89,7 +89,7 @@ func getClubList(url string, cookies string) (ClubList, error) {
 	}
 
 	var list ClubList
-	if json.NewDecoder(resp.Body).Decode(&list) != nil {
+  if err := json.NewDecoder(resp.Body).Decode(&list); err != nil {
 		return ClubList{}, fmt.Errorf("failed to parse json: %w", err)
 	}
 
