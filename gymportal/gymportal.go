@@ -5,6 +5,10 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
+
+	"github.com/influxdata/influxdb-client-go/v2"
+	write "github.com/influxdata/influxdb-client-go/v2/api/write"
 )
 
 type Response struct {
@@ -13,9 +17,23 @@ type Response struct {
 
 type ClubList []Club
 type Club struct {
-	Name      string `json:"ClubName"`
 	Address   string `json:"ClubAddress"`
+	Name      string `json:"ClubName"`
 	Occupancy int    `json:"UsersCountCurrentlyInClub"`
+}
+
+func (club *Club) ToPoint() *write.Point {
+	return influxdb2.NewPoint(
+		"club",
+		map[string]string{
+			"address": club.Address,
+			"name":    club.Name,
+		},
+		map[string]interface{}{
+			"occupancy": club.Occupancy,
+		},
+		time.Now(),
+	)
 }
 
 func GetClubList(url string, cookies string) (ClubList, error) {

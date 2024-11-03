@@ -9,6 +9,33 @@ import (
 	"testing"
 )
 
+func TestClubToPoint(t *testing.T) {
+	club := Club{
+		Name:      "Gym",
+		Address:   "123 Gym St",
+		Occupancy: 10,
+	}
+	point := club.ToPoint()
+
+	tags := point.TagList()
+	if len(tags) != 2 {
+		t.Errorf("expected 2 tags, got %d", len(tags))
+	}
+
+	fields := point.FieldList()
+	if len(fields) != 1 {
+		t.Errorf("expected 1 field, got %d", len(fields))
+	}
+
+	if fields[0].Key != "occupancy" {
+		t.Errorf("expected field key 'occupancy', got '%s'", fields[0].Key)
+	}
+
+	if fields[0].Value != int64(10) {
+		t.Errorf("expected field value 10, got %d", fields[0].Value)
+	}
+}
+
 func TestGetClubListInvalidURL(t *testing.T) {
 	_, err := GetClubList("::invalid-url", "cookie=abc")
 
@@ -41,7 +68,7 @@ func TestGetClubListInvalidResponseStatus(t *testing.T) {
 	_, err := GetClubList(ts.URL+"/api", "cookie=abc")
 
 	if err.Error() != "response status != 200: 403, body: " {
-		t.Fatalf("invalid error, got: %v", err)
+		t.Fatalf("invalid error, got: '%v'", err)
 	}
 }
 
@@ -58,8 +85,9 @@ func TestGetClubListInvalidJSON(t *testing.T) {
 
 	_, err := GetClubList(ts.URL+"/api", "cookie=abc")
 
-	if err.Error() != "failed to parse json: invalid character 'a' looking for beginning of value" {
-		t.Fatalf("invalid error, got: %v", err)
+	expectedErrorMessage := "failed to parse json: invalid character 'a' looking for beginning of value"
+	if err.Error() != expectedErrorMessage {
+		t.Fatalf("invalid error, got: '%v'", err)
 	}
 }
 
@@ -73,11 +101,11 @@ func TestGetClubList(t *testing.T) {
 		http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {
 				if r.URL.Path != "/api" {
-					t.Errorf("invalid request path, expected /api, got: %s", r.URL.Path)
+					t.Errorf("expected request path '/api', got: '%s'", r.URL.Path)
 				}
 
 				if cookie := r.Header.Get("Cookie"); cookie != expectedCookie {
-					t.Errorf("invalid cookie, expected %s, got: %s", expectedCookie, cookie)
+					t.Errorf("expected cookie '%s', got: '%s'", expectedCookie, cookie)
 				}
 
 				w.Write([]byte(mockResponse))
@@ -91,10 +119,10 @@ func TestGetClubList(t *testing.T) {
 	fmt.Printf("%v\n", clubs)
 
 	if len(clubs) != 1 {
-		t.Fatalf("expected club list to be 1, got %d", len(clubs))
+		t.Fatalf("expected club list to have length 1, got length %d", len(clubs))
 	}
 
 	if clubs[0] != expectedClub {
-		t.Fatalf("invalid result, expected %v, got: %v", expectedClub, clubs)
+		t.Fatalf("expected club '%v', got: '%v'", expectedClub, clubs)
 	}
 }
