@@ -23,11 +23,11 @@ services:
 
 secrets:
   influxdb-username:
-    file: ./influxdb-username.txt
+    file: ./influxdb.txt
   influxdb-password:
-    file: ./influxdb-password.txt
+    file: ./influxdb.txt
   influxdb-token:
-    file: ./influxdb-token.txt
+    file: ./influxdb.txt
 
 volumes:
   influxdb-data:
