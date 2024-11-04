@@ -1,4 +1,4 @@
-module github.com/andrewyazura/gym-stats
+module github.com/andrewyazura/gym-occupancy
 
 go 1.23.2
 

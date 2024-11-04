@@ -3,8 +3,8 @@ package storage
 import (
 	"log"
 
-	"github.com/andrewyazura/gym-stats/config"
-	"github.com/andrewyazura/gym-stats/gymportal"
+	"github.com/andrewyazura/gym-occupancy/config"
+	"github.com/andrewyazura/gym-occupancy/gymportal"
 	"github.com/influxdata/influxdb-client-go/v2"
 )
 

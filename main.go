@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/andrewyazura/gym-stats/config"
-	"github.com/andrewyazura/gym-stats/gymportal"
-	"github.com/andrewyazura/gym-stats/storage"
+	"github.com/andrewyazura/gym-occupancy/config"
+	"github.com/andrewyazura/gym-occupancy/gymportal"
+	"github.com/andrewyazura/gym-occupancy/storage"
 	"log"
 )
 

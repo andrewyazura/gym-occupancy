@@ -1,0 +1,12 @@
+{
+  "gymPortal": {
+    "url": "https://wellfitness.perfectgym.pl/ClientPortal2/Clubs/Clubs/GetMembersInClubs",
+    "cookies": "ClientPortal.Auth=auth-token"
+  },
+  "influxDB": {
+    "url": "http://influxdb:8086",
+    "authToken": "admin-token",
+    "org": "gym",
+    "bucket": "clubs"
+  }
+}

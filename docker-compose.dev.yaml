@@ -8,27 +8,8 @@ services:
       - 8086:8086
     environment:
       DOCKER_INFLUXDB_INIT_MODE: setup
-      DOCKER_INFLUXDB_INIT_USERNAME_FILE: /run/secrets/influxdb-username
-      DOCKER_INFLUXDB_INIT_PASSWORD_FILE: /run/secrets/influxdb-password
-      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN_FILE: /run/secrets/influxdb-token
+      DOCKER_INFLUXDB_INIT_USERNAME_FILE: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD_FILE: password
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN_FILE: admin-token
       DOCKER_INFLUXDB_INIT_ORG: gym
       DOCKER_INFLUXDB_INIT_BUCKET: clubs
-    secrets:
-      - influxdb-username
-      - influxdb-password
-      - influxdb-token
-    volumes:
-      - influxdb-data:/var/lib/influxdb2
-      - influxdb-config:/etc/influxdb2
-
-secrets:
-  influxdb-username:
-    file: ./influxdb.txt
-  influxdb-password:
-    file: ./influxdb.txt
-  influxdb-token:
-    file: ./influxdb.txt
-
-volumes:
-  influxdb-data:
-  influxdb-config:
