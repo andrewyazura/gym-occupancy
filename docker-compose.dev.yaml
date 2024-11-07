@@ -1,7 +1,4 @@
 services:
-  gymstats:
-    build: .
-
   influxdb:
     image: influxdb:2
     ports:
