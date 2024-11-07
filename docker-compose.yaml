@@ -2,7 +2,7 @@ services:
   gym-occupancy:
     build: .
     depends_on:
-      influxdb:
+      - influxdb
 
   influxdb:
     image: influxdb:2
