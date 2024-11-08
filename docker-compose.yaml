@@ -1,10 +1,10 @@
 services:
   gym-occupancy:
     build: .
-    volumes:
-      - ./config.json:/config.json
     depends_on:
       - influxdb
+    volumes:
+      - ./config.json:/home/deploy/config.json
 
   influxdb:
     image: influxdb:2
@@ -19,6 +19,19 @@ services:
       - influxdb-data:/var/lib/influxdb2
       - influxdb-config:/etc/influxdb2
 
+  grafana:
+    image: grafana/grafana-oss:11.3.0
+    depends_on:
+      - influxdb
+    ports:
+      - 3000:3000
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
 volumes:
   influxdb-data:
   influxdb-config:
+  grafana-storage:

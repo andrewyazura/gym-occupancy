@@ -15,12 +15,15 @@ ADD storage ./storage
 RUN CGO_ENABLED=0 GOOS=linux go build -o /app.out
 
 FROM debian:bookworm
+RUN groupadd -r deploy && useradd -r -g deploy deploy
 
 RUN apt update && \
     apt upgrade -y && \
     apt install -y ca-certificates
 
-WORKDIR /
+USER deploy
+
+WORKDIR /home/deploy
 COPY --from=build-stage /app.out /app.out
 
 ENTRYPOINT ["/app.out"]
