@@ -54,7 +54,13 @@ func GetClubList(url string, cookies string) (ClubList, error) {
 
 	if resp.StatusCode != http.StatusOK {
 		body, _ := io.ReadAll(resp.Body)
-		return ClubList{}, fmt.Errorf("response status != 200: %d, body: %s", resp.StatusCode, string(body))
+		return ClubList{}, fmt.Errorf(
+      "invalid request to %s, response status != 200: %d, headers: %v body: %s",
+      resp.Request.URL,
+			resp.StatusCode,
+			resp.Header,
+			string(body),
+		)
 	}
 
 	var response Response
