@@ -22,6 +22,5 @@ RUN apt update && \
 
 WORKDIR /
 COPY --from=build-stage /app.out /app.out
-COPY ./config.json /
 
 ENTRYPOINT ["/app.out"]
